@@ -1,0 +1,20 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+  
+  .sidenav {
+    padding: 20px;
+    width: 250px; /* Set a width for the sidenav */
+  }
+  
+  .sidenav-container,
+  .mat-drawer-content,
+  .mat-drawer-container {
+    height: auto; /* Change height to auto */
+  }
+  
+  .sidenav-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
