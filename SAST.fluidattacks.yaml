@@ -1,0 +1,6 @@
+namespace: dashboard
+output:
+  file_path: ./Fluid-Attacks-SAST-Results.sarif
+  format: SARIF
+working_dir: .
+language: EN
