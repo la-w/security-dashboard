@@ -1,19 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { RouterOutlet } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatSidenav} from '@angular/material/sidenav';
+import { SharedModule } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatSlideToggleModule, MatCardModule, MatInputModule, MatFormFieldModule, MatLabel, MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatTableModule],
+  imports: [RouterOutlet, SharedModule, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -21,7 +14,8 @@ export class AppComponent {
   
   title = 'security-dashboard';
 
-  @ViewChild('sidenav') sidenav!: MatSidenav;
+  // Leaving sidenav out for now, as won't be used for now.
+  // @ViewChild('sidenav') sidenav!: MatSidenav;
   
   logout() {
     // TODO implement logout

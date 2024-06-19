@@ -9,8 +9,8 @@ import { VulnerabilityListComponent } from "../vulnerability-list/vulnerability-
     imports: [VulnerabilityListComponent]
 })
 export class DashboardComponent {
-logout() {
-throw new Error('Method not implemented.');
-}
+    logout() {
+        throw new Error('Method not implemented.');
+    }
 
 }

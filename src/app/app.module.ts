@@ -1,15 +1,9 @@
 import { NgModule } from '@angular/core';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {MatTableModule} from '@angular/material/table';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   imports: [
-    MatSlideToggleModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatTableModule,
+    SharedModule,
   ]
 })
 class AppModule {}
