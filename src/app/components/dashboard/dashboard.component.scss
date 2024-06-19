@@ -1,0 +1,12 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+app-vulnerability-list {
+  flex-grow: 1;
+  overflow: auto;
+}
