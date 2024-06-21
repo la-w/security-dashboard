@@ -1,28 +1,17 @@
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
   mat-card {
     padding: 20px;
     max-width: 400px;
     width: 100%;
-  }
-  
-  .login-form  mat-form-field{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    height: 100%;
+    button > mat-icon {
+      height: 48px;
+      width: 48px;
+    }
   }
-  
-  
-  
+}
