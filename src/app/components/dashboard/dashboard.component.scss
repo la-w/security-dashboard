@@ -1,12 +1,27 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 80vh;
+  scroll-behavior: smooth;
+  overflow: auto;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
   padding: 0 10px;
+  margin-bottom: 10px;
+  
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.list-container::-webkit-scrollbar {
+  display: none;
 }
 
 app-vulnerability-list {
   flex-grow: 1;
-  overflow: auto;
+
 }

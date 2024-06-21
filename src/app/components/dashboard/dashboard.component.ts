@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { VulnerabilityChartsComponent } from '../vulnerability-charts/vulnerability-charts.component';
 import { VulnerabilityListComponent } from "../vulnerability-list/vulnerability-list.component";
 
 @Component({
@@ -6,7 +7,7 @@ import { VulnerabilityListComponent } from "../vulnerability-list/vulnerability-
     standalone: true,
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
-    imports: [VulnerabilityListComponent]
+    imports: [VulnerabilityListComponent, VulnerabilityChartsComponent]
 })
 export class DashboardComponent {
     logout() {
