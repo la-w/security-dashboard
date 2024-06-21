@@ -1,25 +1,28 @@
-import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
-import { provideRouter } from "@angular/router";
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHighlightOptions } from 'ngx-highlightjs';
 
 import { routes } from "./app.routes";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { authConfig } from "./auth/auth.config";
 import { provideAuth } from "angular-auth-oidc-client";
 import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
+        provideHttpClient,
+        withFetch,
+        withInterceptors,
 } from "@angular/common/http";
 import { idTokenAuthInterceptor } from "./auth/httpInterceptor";
 
 export const allowedGroups = ["agilesec/tbdpwl"];
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
-    provideAnimationsAsync(),
-    provideAuth(authConfig),
-    provideHttpClient(withFetch(), withInterceptors([idTokenAuthInterceptor])),
-  ],
+        providers: [
+                provideZoneChangeDetection({ eventCoalescing: true }),
+                provideRouter(routes), provideAnimationsAsync(),
+                provideHighlightOptions({
+                        fullLibraryLoader: () => import('highlight.js')
+                }),
+                provideAuth(authConfig),
+                provideHttpClient(withFetch(), withInterceptors([idTokenAuthInterceptor])),
+        ],
 };
