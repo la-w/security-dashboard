@@ -1,0 +1,35 @@
+@use "@angular/material" as mat;
+
+@mixin color($theme) {
+  .mdc-button__label,
+  .username,
+  .alt-text-user {
+    color: mat.get-theme-color($theme, primary);
+  }
+  .header {
+    background: mat.get-theme-color($theme, primary-container);
+  }
+  mat-icon {
+    color: mat.get-theme-color($theme, primary);
+  }
+  .mat-expansion-indicator svg {
+    fill: mat.get-theme-color($theme, primary);
+  }
+}
+
+@mixin typography($theme) {
+  .title {
+    // Get the large title font from the theme.
+    font: mat.get-theme-typography($theme, title-large, font);
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+
+  @if mat.theme-has($theme, typography) {
+    @include typography($theme);
+  }
+}

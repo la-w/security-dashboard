@@ -6,24 +6,24 @@
   -->
 
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar class="header">
       <!--
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
       -->
-      <span><a routerLink="/dashboard" style="color: white; text-decoration: none">TBD_PWL Security Dashboard</a></span>
+      <a mat-button routerLink="/dashboard" class="title"
+        ><mat-icon>dashboard</mat-icon>TBD_PWL Security Dashboard</a
+      >
       <span class="spacer"></span>
-      @if(isAuthenticated) {
-        <span>Hello, {{displayName}}!</span>
+      @if (isAuthenticated) {
+        <span class="username">Hello, {{ displayName }}!</span>
         <button mat-icon-button (click)="logout()">
           <mat-icon>logout</mat-icon>
         </button>
+      } @else {
+        <span class="alt-text-user"><em>Not logged in</em></span>
       }
-      @else {
-        <span><em>Not logged in</em></span>
-      }
-
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

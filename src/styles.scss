@@ -1,5 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@use "@angular/material" as mat;
+@use "./app/_app.theme" as app-theme;
+@use "./app/components/vulnerability-charts/_charts.theme" as charts-theme;
+@use "./app/components/login/login.theme" as login-theme;
+
+@include mat.core();
+
+// Define a dark theme
+$dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$azure-palette,
+    ),
+  )
+);
+
+// Define a light theme
+$light-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+    ),
+  )
+);
+
+@import "highlight.js/styles/github.css";
+
+html {
+  // Apply the dark theme by default
+  @include mat.all-component-themes($dark-theme);
+  @include app-theme.theme($dark-theme);
+  @include charts-theme.theme($dark-theme);
+  @include login-theme.theme($dark-theme);
+
+  // Apply the light theme only when the user prefers light themes.
+  @media (prefers-color-scheme: light) {
+    // Use the `-color` mixins to only apply color styles without reapplying the same
+    // typography and density styles.
+    @include mat.all-component-colors($light-theme);
+    @include app-theme.color($light-theme);
+    @include charts-theme.color($light-theme);
+    @include login-theme.color($light-theme);
+  }
+}
 
 html,
 body {

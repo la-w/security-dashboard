@@ -4,12 +4,12 @@ import { OidcSecurityService, OpenIdConfiguration } from 'angular-auth-oidc-clie
 import { switchMap, take } from 'rxjs/operators';
 import { authConfig } from './auth.config';
 
-export const idTokenAuthInterceptor : HttpInterceptorFn = (request, next) => {
+export const idTokenAuthInterceptor: HttpInterceptorFn = (request, next) => {
     const oidcSecurityService = inject(OidcSecurityService);
-    
+
     const secureRoutes = (authConfig.config as OpenIdConfiguration).secureRoutes;
 
-    if(secureRoutes == undefined || !secureRoutes.some(route => request.url.startsWith(route))) {
+    if (secureRoutes == undefined || !secureRoutes.some(route => request.url.startsWith(route))) {
         return next(request);
     }
 
