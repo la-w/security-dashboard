@@ -1,35 +1,31 @@
-import { Component } from '@angular/core';
-import {FormControl, Validators } from '@angular/forms';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {merge} from 'rxjs';
-import { SharedModule } from '../../shared/shared.module';
+import { Component, OnInit, inject } from "@angular/core";
+import { take } from "rxjs";
+import { SharedModule } from "../../shared/shared.module";
+import { OidcSecurityService } from "angular-auth-oidc-client";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-login',
+  selector: "app-login",
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: "./login.component.html",
+  styleUrl: "./login.component.scss",
 })
-export class LoginComponent {
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required]);
+export class LoginComponent implements OnInit {
+  private readonly oidcSecurityService = inject(OidcSecurityService);
+  private readonly router = inject(Router);
 
-  errorMessage = '';
-
-  constructor() {
-    merge(this.email.statusChanges, this.password.statusChanges, this.email.valueChanges, this.password.valueChanges)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateErrorMessage());
+  ngOnInit(): void {
+    this.oidcSecurityService.isAuthenticated$
+      .pipe(take(1))
+      .subscribe((isAuthenticated) => {
+        if (isAuthenticated) {
+          this.router.navigate(["/dashboard"]);
+        }
+      });
   }
 
-  updateErrorMessage() {
-    if (this.email.hasError('required')) {
-      this.errorMessage = 'You must enter a value';
-    } else if (this.email.hasError('email')) {
-      this.errorMessage = 'Not a valid email';
-    } else if (this.password.hasError('required')) {
-      this.errorMessage = '';
-    }
+  login() {
+    this.oidcSecurityService.authorize();
   }
 }

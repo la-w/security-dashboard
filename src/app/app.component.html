@@ -14,9 +14,16 @@
       -->
       <span><a routerLink="/dashboard" style="color: white; text-decoration: none">TBD_PWL Security Dashboard</a></span>
       <span class="spacer"></span>
-      <button mat-icon-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
-      </button>
+      @if(isAuthenticated) {
+        <span>Hello, {{displayName}}!</span>
+        <button mat-icon-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      }
+      @else {
+        <span><em>Not logged in</em></span>
+      }
+
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

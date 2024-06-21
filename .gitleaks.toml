@@ -1,0 +1,12 @@
+title = "Allowlist for False Positives"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "global allow list"
+
+regexTarget = "match"
+regexes = [
+    '''clientId: ['"][\w\d]+['"]'''
+]

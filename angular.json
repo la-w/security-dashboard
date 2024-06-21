@@ -36,7 +36,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "ssr": false,
+            "ssr": false
           },
           "configurations": {
             "production": {
@@ -57,7 +57,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environment.ts",
+                  "with": "src/environment.dev.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
