@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   // Leaving sidenav out for now, as won't be used for now.
   // @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer, private matIconReg: MatIconRegistry) {
     matIconRegistry.addSvgIcon(
       "gitlab",
       domSanitizer.bypassSecurityTrustResourceUrl("gitlab.svg")
@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.matIconReg.setDefaultFontSetClass('material-symbols-rounded');
     this.oidcSecurityService
       .checkAuth()
       .subscribe((loginResponse: LoginResponse) => {
