@@ -18,4 +18,10 @@ export class FindingsService {
       params: { pipelineId },
     });
   }
+
+  getFinding(pipelineId: number): Observable<Finding[]> {
+    return this.httpClient.get<Finding[]>(`${this.apiUri}/Get`, {
+      params: { pipelineId },
+    });
+  }
 }

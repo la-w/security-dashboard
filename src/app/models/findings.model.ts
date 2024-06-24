@@ -14,6 +14,10 @@ export class Finding {
   securityAdvisories!: string[];
   pipelineRunId!: number;
   toolRuleId!: string;
+  falsePositive!: boolean;
+  branch!: string;
+  commitHash!: string;
+  pipelineId!: number;
 }
 
 export interface FluidAttacksFinding extends Finding {
@@ -54,8 +58,8 @@ export enum SarifTool {
 }
 
 export enum FailureLevel {
+  'None',
   'Note',
   'Warning',
   'Error',
-  'Failure',
 }
