@@ -17,6 +17,7 @@ stages:
   - deploy
   - dast1
   - teardown
+  - send-reports
 
 docker-build:
   stage: package
@@ -243,5 +244,15 @@ dast_zap:
     when: always
     paths:
       - Zap-Report.sarif*
+  only:
+    - dev
+
+send_reports:
+  stage: send-reports
+  image: alpine/curl
+  before_script:
+    - apk update && apk add bash
+  script:
+    - bash send-reports.sh
   only:
     - dev
