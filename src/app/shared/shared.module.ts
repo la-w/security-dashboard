@@ -13,7 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import {MatSelectModule} from '@angular/material/select'; 
 
 
 @NgModule({
@@ -34,6 +34,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
   ],
   exports: [
     MatCardModule,
@@ -50,6 +51,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
   ]
 })
 export class SharedModule { }
