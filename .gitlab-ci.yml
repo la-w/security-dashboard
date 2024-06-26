@@ -58,6 +58,9 @@ deploy-dev:
     url: https://dashboard_dev.tbdpwl.dynv6.net
   only:
     - dev
+  artifacts:
+    paths:
+      - send-reports.sh
 
 sast_prepare:
   stage: sast
@@ -250,6 +253,8 @@ dast_zap:
 send_reports:
   stage: send-reports
   image: alpine/curl
+  variables:
+    GIT_STRATEGY: none
   before_script:
     - apk update && apk add bash
   script:
