@@ -1,7 +1,7 @@
 env:
   contexts:
     - name: Dashboard
-      url: {REVIEW_URL}
+      urls: [https://dashboard-dev.tbdpwl.dynv6.net]
   parameters:
     failOnError: true
     failOnWarning: false
