@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {
   Chart,
@@ -17,6 +17,7 @@ import {
   Tooltip,
   Colors
 } from "chart.js";
+import { FindingsService } from '../../services/findings.service';
 Chart.register(
   BarController,
   BarElement,
@@ -34,33 +35,62 @@ Chart.register(
 );
 
 @Component({
-  selector: 'app-vulnerability-charts',
+  selector: 'app-finding-charts',
   standalone: true,
   imports: [MatExpansionModule],
-  templateUrl: './vulnerability-charts.component.html',
-  styleUrl: './vulnerability-charts.component.scss'
+  templateUrl: './finding-charts.component.html',
+  styleUrl: './finding-charts.component.scss'
 })
-export class VulnerabilityChartsComponent implements OnInit {
+export class FindingChartsComponent implements OnInit {
   style = getComputedStyle(document.body);
 
-  public DonutChart: any;
-  createDonutChart() {
-    const data = [10, 20, 30, 40]; // Replace with your actual data
-    const findinglabels = ['Rule1', 'Rule2', 'Rule3', 'Rule4']; // Replace with your actual labels
+  @Input() set pipelineId(value: number | undefined) {
+    if (value === undefined) return;
+    if (value === 0) {
+      this.LineChart.data.labels = [];
+      this.LineChart.data.datasets[0].data = [];
+      this.LineChart.update();
+      this.BarChart.data.labels = [];
+      this.BarChart.data.datasets[0].data = [];
+      this.BarChart.update();
+      this.DonutChart.data.labels = [];
+      this.DonutChart.data.datasets[0].data = [];
+      this.DonutChart.update();
+      return;
+    }
 
+    this.findingsService.getChartData(value).subscribe(data => {
+      this.LineChart.data.labels = data.absoluteFindings.labels;
+      this.LineChart.data.datasets[0].data = data.absoluteFindings.data;
+      this.LineChart.update();
+      this.BarChart.data.labels = data.lastRunByLevels.labels;
+      this.BarChart.data.datasets[0].data = data.lastRunByLevels.data;
+      this.BarChart.update();
+      this.DonutChart.data.labels = data.lastRunByRules.labels;
+      this.DonutChart.data.datasets[0].data = data.lastRunByRules.data;
+      this.DonutChart.update();
+    });
+  }
+
+  constructor(private findingsService: FindingsService) { }
+
+  public DonutChart!: Chart<"doughnut", number[], string>;
+  createDonutChart() {
     this.DonutChart = new Chart('donutChart', {
       type: 'doughnut', // This denotes the type of chart
       data: {
-        labels: findinglabels,
+        labels: ["", "", "", "", "", "", ""],
         datasets: [{
           label: 'Number of Findings of the last Run cathegorized by the broken rule',
-          data: data,
+          data: [0, 0, 0, 0, 0, 0, 0],
           borderWidth: 1
         }]
       },
       options: {
         plugins: {
-
+          colors: {
+            enabled: true
+          },
           legend: {
             position: 'right' // Set the legend position to 'right'
           },
@@ -78,19 +108,16 @@ export class VulnerabilityChartsComponent implements OnInit {
   }
 
 
-  public BarChart: any;
+  public BarChart!: Chart;
   createBarChart() {
-    const findingData = [10, 20, 30, 40]; // Replace with your actual data
-    const findingLabels = ['None', 'Note', 'Warning', 'Error']; // Replace with your actual labels
-
     this.BarChart = new Chart('barChart', {
       type: 'bar', //this denotes the type of chart
 
       data: {
-        labels: findingLabels,
+        labels: [],
         datasets: [{
           label: 'Number of Findings of the last Run, cathegorized by the Level of Severity',
-          data: findingData,
+          data: [],
           borderWidth: 1
         }],
       },
@@ -110,20 +137,16 @@ export class VulnerabilityChartsComponent implements OnInit {
     });
   }
 
-  public LineChart: any;
+  public LineChart!: Chart;
   createLineChart() {
-    // Replace with your actual data
-    const findingData = [10, 20, 30, 40, 50, 60, 70];
-    const findingLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-
     this.LineChart = new Chart("lineChart", {
       type: 'line', //this denotes the type of chart
 
       data: {
-        labels: findingLabels,
+        labels: [],
         datasets: [{
-          label: 'Absolute Findings in the last few Pipeline-Runs on Main',
-          data: findingData,
+          label: `Absolute Findings in the last few Pipeline-Runs on ${this.findingsService.branch}`,
+          data: [],
           borderColor: 'red',
           backgroundColor: 'transparent',
           borderWidth: 1
@@ -138,7 +161,12 @@ export class VulnerabilityChartsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Absolute Findings in the last few Pipeline-Runs on Main' // Set the title of the chart
+            text: `Absolute Findings in the last few Pipeline-Runs on ${this.findingsService.branch}` // Set the title of the chart
+          }
+        },
+        scales: {
+          y: {
+            min: 0
           }
         }
       }

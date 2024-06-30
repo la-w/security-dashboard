@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 @use "./app/_app.theme" as app-theme;
-@use "./app/components/vulnerability-charts/_charts.theme" as charts-theme;
+@use "./app/components/finding-charts/_charts.theme" as charts-theme;
 @use "./app/components/login/login.theme" as login-theme;
 
 @include mat.core();

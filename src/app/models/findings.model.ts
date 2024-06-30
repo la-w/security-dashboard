@@ -2,7 +2,6 @@ export class Finding {
   id!: number;
   location!: string;
   tool!: SarifTool;
-  ruleId!: string;
   description!: string;
   snippet!: string;
   snippetStartLine!: number;
@@ -14,42 +13,24 @@ export class Finding {
   securityAdvisories!: string[];
   pipelineRunId!: number;
   toolRuleId!: string;
-  falsePositive!: boolean;
+  toolRule!: {name:string};
+  rule!: string;
+  isFalsePositive!: boolean;
   branch!: string;
   commitHash!: string;
   pipelineId!: number;
 }
 
-export interface FluidAttacksFinding extends Finding {
-  cvss31Vector?: string;
-  cvss40Vector?: string;
-  kind: string;
-  technique: string;
-  sourceMethod: string;
+export class PipelineRun {
+  pipelineId!: number;
+  createdAt!: Date;
+  branch!: string;
+  commitHash!: string;
+  repository!: { "name": string, "url": string };
 }
-
-export interface GitLeaksFinding extends Finding {
-  commitHash: string;
-  commitMessage: string;
-  author: string;
-  email: string;
-  commitDate: Date;
-}
-
-export interface OwaspZapFinding extends Finding {
-  attack: string;
-  webRequest: string;
-  webResponse: string;
-}
-
-export interface SemgrepFinding extends Finding { }
-
-export interface TrivyFinding extends Finding { }
-
-export interface OwaspDependencyCheckFinding extends Finding { }
 
 export enum SarifTool {
-  'FluidAttacks Scanner',
+  'FluidAttacks',
   'GitLeaks',
   'OWASP Dependency-Check',
   'Semgrep OSS',
