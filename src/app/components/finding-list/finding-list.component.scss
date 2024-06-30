@@ -21,7 +21,7 @@ table {
   margin-right: 8px;
 }
 
-.mat-mdc-row {
+.element-row {
   &:hover {
     background-color: var(--mat-option-selected-state-layer-color);
   }
@@ -67,7 +67,7 @@ table {
 }
 
 .error {
-  color: red;
+  color: rgb(255, 99, 132);
 }
 
 .none,
@@ -86,14 +86,14 @@ mat-slide-toggle {
   float: right;
 }
 
-.clickable:hover {
-  cursor: pointer;
-  background-color: rgba(211, 211, 211, 0.349);
-}
-
-.clickable {
-  background-color: rgba(211, 211, 211, 0.349);
-}
+// .clickable:hover {
+//   cursor: pointer;
+//   background-color: rgba(211, 211, 211, 0.349);
+// }
+//
+// .clickable {
+//   background-color: rgba(211, 211, 211, 0.349);
+// }
 
 .filter-options {
   display: flex;
@@ -128,4 +128,18 @@ mat-slide-toggle {
 
 .icon-expand {
   vertical-align: middle;
+}
+
+.spinner {
+  margin: auto;
+  margin-top: 200px;
+  margin-bottom: 200px;
+}
+
+.label {
+  color: var(--mat-app-text-color);
+}
+
+tr.false-positive {
+  background-color: rgb(255, 99, 132, 0.05);
 }

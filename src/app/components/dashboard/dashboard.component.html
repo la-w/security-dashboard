@@ -1,8 +1,8 @@
 <div class="dashboard-container">
 <div class="chart-container">
-    <app-vulnerability-charts></app-vulnerability-charts>
+    <app-finding-charts [pipelineId]="pipelineId"></app-finding-charts>
 </div>
 <div class="list-container">
-        <app-vulnerability-list></app-vulnerability-list>
+        <app-finding-list (pipelineIdChange)="onPipelineIdChanged($event)"></app-finding-list>
 </div>
 </div>

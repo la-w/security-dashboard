@@ -1,0 +1,216 @@
+<div class="detail-container">
+  <button mat-fab class="back-button" routerLink="/dashboard" color="primary">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <mat-card class="detail-card">
+    <mat-card-content>
+      @if (isLoading) {
+      <mat-spinner class="spinner"></mat-spinner>
+      } @else {
+      <div class="detail-section">
+        <div class="detail-row detail-header">
+          <em>{{ finding.toolRule.name }}</em>
+          <div class="toggle-container">
+            <mat-slide-toggle
+              [checked]="finding.isFalsePositive"
+              labelPosition="before"
+              (change)="onToggleFalsePositive($event)"
+              ><span class="label">False Positive</span></mat-slide-toggle
+            >
+          </div>
+        </div>
+        <div class="detail-row">
+          <mat-form-field class="detail-column">
+            <mat-label>finding ID</mat-label>
+            <input matInput [value]="finding.id" readonly />
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>Branch</mat-label>
+            <input matInput [value]="finding.pipelineRun.branch" readonly />
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>Commit Hash</mat-label>
+            <input matInput [value]="finding.pipelineRun.commitHash" readonly />
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>Pipeline ID</mat-label>
+            <input matInput [value]="finding.pipelineRun.pipelineId" readonly />
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>Tool</mat-label>
+            <input matInput [value]="finding.toolRule.tool" readonly />
+          </mat-form-field>
+        </div>
+        <div class="detail-row">
+          <mat-form-field class="detail-column">
+            <mat-label>Level</mat-label>
+            <input matInput [value]="finding.level" readonly />
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>Kind</mat-label>
+            <input matInput [value]="finding.detectionType" readonly />
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>Location</mat-label>
+            <input matInput [value]="finding.location" readonly/>
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>Line</mat-label>
+            @if (finding.line) {
+            <input matInput [value]="finding.line" readonly />
+            } @else {
+            <input matInput [value]="finding.snippetStartLine" readonly />
+            }
+          </mat-form-field>
+        </div>
+        <div class="detail-row">
+          <mat-form-field class="detail-column full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput readonly [rows]="getDescriptionRowCount()">{{
+              finding.description
+            }}</textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-column">
+            <mat-label>Code Snippet</mat-label>
+            <pre><code [highlightAuto]="finding.snippet"></code></pre>
+          </div>
+        </div>
+
+        @if(finding.webRequest) {
+        <div class="detail-row">
+          <mat-form-field class="detail-column full-width">
+            <mat-label>Web Request</mat-label>
+            <textarea matInput readonly rows="10">{{
+              finding.webRequest
+            }}</textarea>
+          </mat-form-field>
+        </div>
+        } @if(finding.webResponse) {
+        <div class="detail-row">
+          <mat-form-field class="detail-column full-width">
+            <mat-label>Web Response</mat-label>
+            <textarea matInput readonly rows="10">{{
+              finding.webResponse
+            }}</textarea>
+          </mat-form-field>
+        </div>
+        }
+
+        <div class="detail-row">
+          <mat-form-field class="detail-column">
+            <mat-label>CWE</mat-label>
+            <input matInput [value]="finding.cweIds" readonly />
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>CVSS3.1 - Vector</mat-label>
+            <input matInput [value]="finding.cvss31Vector ?? ''" readonly />
+          </mat-form-field>
+          <mat-form-field class="detail-column">
+            <mat-label>CVSS4.0 - Vector</mat-label>
+            <input matInput [value]="finding.cvss40Vector ?? ''" readonly />
+          </mat-form-field>
+        </div>
+        <div class="detail-row">
+          <mat-form-field class="detail-column full-width">
+            <mat-label>Security Advisories</mat-label>
+            <textarea matInput readonly>{{
+              finding.securityAdvisories
+            }}</textarea>
+          </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        @if(finding.toolRule && finding.toolRule.fullDescription) {
+        <div class="detail-row">
+          <mat-form-field class="detail-column full-width">
+            <mat-label>Rule Description</mat-label>
+            <textarea matInput readonly rows="8">{{
+              finding.toolRule.fullDescription
+            }}</textarea>
+          </mat-form-field>
+        </div>
+        } @else if (finding.toolRule && finding.toolRule.shortDescription) {
+        <div class="detail-row">
+          <mat-form-field class="detail-column full-width">
+            <mat-label>Rule Description</mat-label>
+            <textarea matInput readonly>{{
+              finding.toolRule.shortDescription
+            }}</textarea>
+          </mat-form-field>
+        </div>
+        } @if(finding.toolRule && finding.toolRule.helpText) {
+        <div class="detail-row">
+          <mat-form-field class="detail-column full-width">
+            <mat-label>Help</mat-label>
+            <textarea matInput readonly rows="8">{{
+              finding.toolRule.helpText
+            }}</textarea>
+          </mat-form-field>
+        </div>
+        } @if(finding.toolRule && finding.toolRule.helpUri) {
+        <div class="detail-row">
+          <a
+            mat-raised-button
+            color="primary"
+            [href]="finding.toolRule.helpUri"
+            target="_blank"
+            >Help: {{ finding.toolRule.name }}</a
+          >
+        </div>
+        } @else {
+        <div class="detail-row">
+          <a mat-raised-button disabled color="primary">No help available</a>
+        </div>
+        }
+
+        @if(finding.findings.length > 1) {
+        <div class="detail-row">
+          <mat-expansion-panel style="width: 100%">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Original Findings</mat-panel-title>
+              <mat-panel-description>Possible duplicates</mat-panel-description>
+            </mat-expansion-panel-header>
+            <table mat-table [dataSource]="finding.findings">
+
+              <ng-container matColumnDef="level">
+                <th mat-header-cell *matHeaderCellDef>Level</th>
+                <td mat-cell *matCellDef="let element">
+                  @if (element.level === "None") {
+                  <mat-icon class="none">circle</mat-icon>
+                  } @else if (element.level === "Note") {
+                  <mat-icon class="note">info</mat-icon>
+                  } @else if (element.level === "Warning") {
+                  <mat-icon class="warning">warning</mat-icon>
+                  } @else if (element.level === "Error") {
+                  <mat-icon class="error">error</mat-icon>
+                  }
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef>Location</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ (element.location.length > 100) ? (element.location|slice:0:97)+"..." : element.location }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="tool">
+                <th mat-header-cell *matHeaderCellDef>Tool</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.toolRule.tool }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="['level', 'location', 'tool']"></tr>
+              <tr mat-row *matRowDef="let row; columns: ['level', 'location', 'tool']"></tr>
+            </table>
+          </mat-expansion-panel>
+        </div>
+        }
+      </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

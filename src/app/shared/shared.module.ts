@@ -15,6 +15,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -37,6 +41,10 @@ import { MatBadgeModule } from '@angular/material/badge';
     ReactiveFormsModule,
     MatSelectModule,
     MatBadgeModule,
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatExpansionModule
   ],
   exports: [
     MatCardModule,
@@ -55,6 +63,10 @@ import { MatBadgeModule } from '@angular/material/badge';
     ReactiveFormsModule,
     MatSelectModule,
     MatBadgeModule,
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatExpansionModule
   ]
 })
 export class SharedModule { }
