@@ -24,4 +24,10 @@ export class FindingsService {
       params: { pipelineId },
     });
   }
+
+  setFalsePositive(findingId: number, isFalsePositive: boolean) : Observable<unknown> {
+    return this.httpClient.post<unknown>(`${this.apiUri}/SetFalsePositive`, {
+      params: { findingId, isFalsePositive },
+    });
+  }
 }
