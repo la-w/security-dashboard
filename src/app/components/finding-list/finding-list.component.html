@@ -201,6 +201,7 @@
                   <tr
                     mat-row
                     *matRowDef="let row; columns: displayedColumns"
+                    [class.false-positive]="row.isFalsePositive"
                     (click)="selectFinding(row)"
                   ></tr>
                 </table>
@@ -216,7 +217,6 @@
           <tr
             mat-row
             *matRowDef="let row; columns: ['expandedDetail']"
-            [class.false-positive]="row.isFalsePositive"
             class="detail-row"
           ></tr>
         </table>
@@ -312,6 +312,7 @@
                   <tr
                     mat-row
                     *matRowDef="let row; columns: displayedColumns"
+                    [class.false-positive]="row.isFalsePositive"
                     (click)="selectFinding(row)"
                   ></tr>
                 </table>
@@ -327,7 +328,6 @@
           <tr
             mat-row
             *matRowDef="let row; columns: ['expandedDetail']"
-            [class.false-positive]="row.isFalsePositive"
             class="detail-row"
           ></tr>
         </table>
