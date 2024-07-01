@@ -75,6 +75,8 @@ export class FindingListComponent implements OnInit {
                 let findings = this.originalDataSource.data.filter(finding => finding.level === level);
                 this.groupedByLevelDataSource.data.push({ level: level, isGroup: true, findings: findings, numberOfFindings: findings.length });
             }
+            // Data must be reassigned to trigger the change detection
+            this.groupedByLevelDataSource.data = [...this.groupedByLevelDataSource.data];
 
             let rules = this.originalDataSource.data.map(finding => finding.rule).filter((value, index, self) => self.indexOf(value) === index);
             this.groupedByRuleDataSource.data = [];
