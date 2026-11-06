@@ -1,3 +1,4 @@
 export const environment = {
-    apiBaseUri: 'https://backend.tbdpwl.dynv6.net'
+    apiBaseUri: 'https://backend.tbdpwl.dynv6.net',
+    demoMode: false
 }

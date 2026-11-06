@@ -11,6 +11,7 @@ import { SharedModule } from "./shared/shared.module";
 import { LoginResponse, OidcSecurityService } from "angular-auth-oidc-client";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
+import { environment } from "../environment";
 
 @Component({
   selector: "app-root",
@@ -40,6 +41,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.matIconReg.setDefaultFontSetClass('material-symbols-rounded');
+
+    if (environment.demoMode) {
+      this.isAuthenticated = true;
+      this.displayName = "Demo User";
+      return;
+    }
+
     this.oidcSecurityService
       .checkAuth()
       .subscribe((loginResponse: LoginResponse) => {
